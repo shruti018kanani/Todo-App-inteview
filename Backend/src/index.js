@@ -36,6 +36,7 @@ app.get('/get',(req,res)=>{
 
 app.delete('/delete',(req,res)=>{
     const {id}=req.body
+    console.log({id}, req.body)
     Todos.findOneAndDelete(id)
     .then((result)=>res.json("todo deleted"))
     .catch((err)=>res.json(err))

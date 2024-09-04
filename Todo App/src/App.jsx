@@ -3,8 +3,9 @@ import { useDispatch } from 'react-redux'
 import AddTodo from './components/AddTodo';
 import Todocomponents from './components/Todocomponents';
 import { setTodo } from './todoReduxStore/todoSlice';
-import { useState,useEffect } from 'react';
+import { useState,useEffect, useMemo } from 'react';
 import axios from 'axios';
+import { getTODataList } from './utils/getTodolist';
 
 function App() {
   const todos = useSelector(state => state.todo)
@@ -12,23 +13,21 @@ function App() {
   console.log(todos);
  
    useEffect(() => {
-    const getData= async()=>{
-      const res = await axios.get('http://localhost:3000/get')
-      if(res?.data) {
-         console.log('Data => ', res.data);  
-         return res.data
-      } else {
-         return null;
-      }
-     }
-
-    getData().then((res)=> {
-      console.log('1. res ==> ', res);
+    getTODataList().then((res)=> {  
       dispatch(setTodo(res))
     })
  
    }, [])
 
+  const todoData = useMemo(() => {
+    if(todos?.length > 0) {
+      return todos
+    } else {
+      return []
+    }
+  }, [todos])
+
+   
   return (
     <div className="w-full h-screen  max-w-2xl mx-auto shadow-md rounded-lg px-4 py-3 text-white"
 >
@@ -43,7 +42,7 @@ function App() {
       <div className="flex flex-wrap gap-y-3 m-3 p-4 space-x-2"
       >
         {
-          todos.map((prev)=>(
+          todoData?.map((prev)=>(
             <div key={prev._id}>
               <Todocomponents todo={prev}/>
             </div>
