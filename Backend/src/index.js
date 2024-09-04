@@ -42,6 +42,13 @@ app.delete('/delete',(req,res)=>{
     .catch((err)=>res.json(err))
 })
 
+app.patch('/patch',(req,res)=>{
+    const {id}=req.body
+    Todos.findByIdAndUpdate({_id:id},{isCompleted:!isCompleted})
+    .then((result)=>res.json("todo toggle"))
+    .catch((err)=>res.json(err))
+})
+
 
 app.listen(3000,()=>{
     console.log('app is listening at http://localhost:3000 ')

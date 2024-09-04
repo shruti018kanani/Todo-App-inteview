@@ -3,7 +3,7 @@ import axios from 'axios'
 
 
 const initialState={
-    todo:[{msg:"hello",id:1,isCompleted:false}]
+    todo:[],
 }
 
 export const todoSlice=createSlice({
@@ -11,7 +11,7 @@ export const todoSlice=createSlice({
     initialState,
     reducers:{
         setTodo:(state,action)=>{
-            state.todo.push(action.payload)
+            state.todo.push(...action.payload)
         },
         addTodo:(state,action)=>{
             const newtodo={
@@ -24,17 +24,12 @@ export const todoSlice=createSlice({
             .then((res)=>console.log(res))
             .catch((error)=>console.log(error))
         },
-        deleteTodo:(state,action)=>{
-            state.todo=state.todo.filter((prev)=>prev.id!==action.payload.id)
-            const id=axios.get('http://localhost:3000/get')
-            .then((res)=>res.data.id)
-            .catch((error)=>console.log(error))
-            
-
-            axios.delete('http://localhost:3000/delete',{id})
-            .then((res)=>console.log(res))
-            .catch((error)=>console.log(error))
-        },
+        // deleteTodo:(state,action)=>{
+        //     state.todo=state.todo.filter((prev)=>prev.id!==action.payload.id)
+        //     axios.delete('http://localhost:3000/delete',{id})
+        //     .then((res)=>console.log(res))
+        //     .catch((error)=>console.log(error))
+        // },
 
         updateTodo: (state, action) => {
             const todoToUpdate = state.todo.find(todo => todo.id === action.payload.id)
@@ -43,12 +38,12 @@ export const todoSlice=createSlice({
                 todoToUpdate.isCompleted = action.payload.isCompleted 
             }
         },
-        toggleTodoCompletion: (state, action) => {
-            const todoToToggle = state.todo.find(todo => todo.id === action.payload.id)
-            if (todoToToggle) {
-                todoToToggle.isCompleted = !todoToToggle.isCompleted
-            }
-        }
+        // toggleTodoCompletion: (state, action) => {
+        //     const todoToToggle = state.todo.find(todo => todo.id === action.payload.id)
+        //     if (todoToToggle) {
+        //         todoToToggle.isCompleted = !todoToToggle.isCompleted
+        //     }
+        // }
        
     }
 })
