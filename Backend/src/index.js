@@ -31,7 +31,6 @@ app.post('/add',(req,res)=>{
 app.get('/get',(req,res)=>{
     Todos.find()
     .then((result)=>res.json(result))
-    
     .catch((err)=>res.json(err))
 })
 
@@ -43,8 +42,8 @@ app.delete('/delete',(req,res)=>{
 })
 
 app.patch('/patch',(req,res)=>{
-    const {id}=req.body
-    Todos.findByIdAndUpdate({_id:id},{isCompleted:!isCompleted})
+    const {id,isCompleted}=req.body
+    Todos.findByIdAndUpdate(id,{isCompleted:!isCompleted})
     .then((result)=>res.json("todo toggle"))
     .catch((err)=>res.json(err))
 })

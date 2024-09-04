@@ -30,17 +30,17 @@ function App() {
    }, [])
 
   return (
-    <div className="w-full max-w-2xl mx-auto shadow-md rounded-lg px-4 py-3 text-white"
+    <div className="w-full h-screen  max-w-2xl mx-auto shadow-md rounded-lg px-4 py-3 text-white"
 >
       <div>
-      <h1>TODOS</h1>
-      <div  className="mb-4 "
+      <h1 className=' flex items-center'>TODOS</h1>
+      <div className="mb-4 "
       >
         <AddTodo/>
       </div>
       </div>
 
-      <div className="flex flex-wrap gap-y-3 m-3 "
+      <div className="flex flex-wrap gap-y-3 m-3 p-4 space-x-2"
       >
         {
           todos.map((prev)=>(
